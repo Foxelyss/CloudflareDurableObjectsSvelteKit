@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "my-svelte-app",
-	"main": ".svelte-kit/cloudflare/_worker.js",
+	"main": ".svelte-kit/cloudflare/_worker.ts",
 	"compatibility_date": "2025-06-03",
 	"assets": {
 		"binding": "ASSETS",
@@ -13,7 +13,23 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	"durable_objects": {
+    "bindings": [
+      {
+        "name": "MY_DO",
+        "class_name": "DurableObjectClass",
+      }
+    ]
+  },
+  "migrations": [
+	{
+		"tag": "v1",
+		"new_classes": [
+              "DurableObjectClass"
+            ]
 	}
+  ]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

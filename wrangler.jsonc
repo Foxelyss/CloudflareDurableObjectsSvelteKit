@@ -19,15 +19,21 @@
       {
         "name": "MY_DO",
         "class_name": "DurableObjectClass",
+      },
+	  {
+        "name": "ZABOR",
+        "class_name": "Zabor",
       }
     ]
   },
   "migrations": [
 	{
 		"tag": "v1",
-		"new_classes": [
-              "DurableObjectClass"
-            ]
+			"new_sqlite_classes": ["DurableObjectClass"]
+	},
+	{
+		"tag": "v2",
+			"new_sqlite_classes": ["Zabor"]
 	}
   ]
 	/**

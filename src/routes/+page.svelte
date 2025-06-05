@@ -1,16 +1,55 @@
-<script>
-  /** @type {import('./$types').PageData} */
-  export let data;
+<script lang="ts"> 
+  import type { PageProps } from './$types';
+
+	let { data, form }: PageProps = $props();
+
+  const try_english = (event) => {
+    if (
+      (event.charCode >= 65 && event.charCode <= 90) ||
+      (event.charCode >= 97 && event.charCode <= 122) ||
+      (event.charCode >= 48 && event.charCode <= 57)
+    ) {
+      return "asd";
+    }
+    event.preventDefault();
+  };
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the
-  documentation
-</p>
+<h1>
+  Welcome to my SvelteKit App with Durable Object(All in one worker, Yeah, its
+  possible!)
+</h1>
 
-<h1>Users: {data.text}</h1>
-<h2>
+<h1>Visit Counter: {data.text}</h1>
+
+<form method="POST">
+  <label for="text">Enter text for ZABOR!</label><br />
+  <input
+    type="text"
+    id="text"
+    name="text"
+    minlength="3"
+    maxlength="26"
+    required
+    on:keypress={try_english}
+  /><br />
+  <input type="submit" value="Submit" />
+</form>
+{#if (form?.missing)}
+	<!-- this message is ephemeral; it exists because the page was rendered in
+	       response to a form submission. it will vanish if the user reloads -->
+	<p>No!</p>
+{/if}
+
+<h2>Current words on "ZABOR"</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+  {#each data.zabor as text}
+    <div>{text}</div>
+  {/each}
+</div>
+
+<!-- <h2>
   KV value before Durable Object call is: <code style="color:#bada55"
     >{data.kv_value_before}</code
   >
@@ -19,4 +58,4 @@
   KV value AFTER Durable Object call is: <code style="color:#bada55"
     >{data.kv_value_after}</code
   >
-</h2>
+</h2> -->

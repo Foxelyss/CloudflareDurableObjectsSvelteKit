@@ -1,15 +1,18 @@
-<script lang="ts"> 
-  import type { PageProps } from './$types';
+<script lang="ts">
+  import type { PageProps } from "./$types";
 
-	let { data, form }: PageProps = $props();
+  let { data, form }: PageProps = $props();
 
-  const try_english = (event) => {
+  const try_english = (event: {
+    charCode: number;
+    preventDefault: () => void;
+  }) => {
     if (
       (event.charCode >= 65 && event.charCode <= 90) ||
       (event.charCode >= 97 && event.charCode <= 122) ||
       (event.charCode >= 48 && event.charCode <= 57)
     ) {
-      return "asd";
+      return;
     }
     event.preventDefault();
   };
@@ -24,6 +27,7 @@
 
 <form method="POST">
   <label for="text">Enter text for ZABOR!</label><br />
+  <!-- svelte-ignore event_directive_deprecated -->
   <input
     type="text"
     id="text"
@@ -35,10 +39,8 @@
   /><br />
   <input type="submit" value="Submit" />
 </form>
-{#if (form?.missing)}
-	<!-- this message is ephemeral; it exists because the page was rendered in
-	       response to a form submission. it will vanish if the user reloads -->
-	<p>No!</p>
+{#if form?.missing}
+  <p>No!</p>
 {/if}
 
 <h2>Current words on "ZABOR"</h2>
@@ -48,14 +50,3 @@
     <div>{text}</div>
   {/each}
 </div>
-
-<!-- <h2>
-  KV value before Durable Object call is: <code style="color:#bada55"
-    >{data.kv_value_before}</code
-  >
-</h2>
-<h2>
-  KV value AFTER Durable Object call is: <code style="color:#bada55"
-    >{data.kv_value_after}</code
-  >
-</h2> -->
